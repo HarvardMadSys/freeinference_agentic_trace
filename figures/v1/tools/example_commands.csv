@@ -1,0 +1,9 @@
+category,examples
+*Interpreter,"code (code), python, python -c, node, npm run, javascript (code), npx playwright, php"
+*Search,"grep, sed, rg, find, Select-String, awk, fd, jq"
+*File Ops,"Get-Content, ls, date, cat, tail, head, echo, cd"
+*Git/VCS,"git diff, git status, git log, git commit, git push, git show, git add, git checkout"
+*Network,"ssh, curl, sshpass, Invoke-WebRequest, scp, Invoke-RestMethod, ping, rsync"
+*Wait/Poll,"sleep, Start-Process, Set-Content, Start-Sleep, Out-File, Write-Output, ssh, echo"
+*Build/Test,"npx tsc, npx vitest, python -m pytest, go build, npx eslint, npm test, cargo check, go test"
+*Packages,"npm install, pnpm typecheck, pip install, npm ls, python -m pip, npm view, go vet, npm update"

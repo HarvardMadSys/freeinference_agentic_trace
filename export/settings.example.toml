@@ -1,0 +1,21 @@
+# The choices of one export. The maintainer keeps the real file, with the same
+# settings, as private/export.toml, which is never committed. Everything else
+# is a rule, fixed in code or in the other files of this folder.
+
+# The Sundays of the weeks in this export: 2026-05-17 to 2026-09-05. The week
+# of 2026-08-02 is partial: logging stopped on 2026-08-07 at 04:57 UTC and
+# resumed at the next week's start.
+weeks = [
+    2026-05-17, 2026-05-24, 2026-05-31, 2026-06-07,
+    2026-06-14, 2026-06-21, 2026-06-28, 2026-07-05,
+    2026-07-12, 2026-07-19, 2026-07-26, 2026-08-02,
+    2026-08-09, 2026-08-16, 2026-08-23, 2026-08-30,
+]
+
+# The most processes one step of one week may use. A week's steps use one
+# process per 4 GB of its weekly log, up to this.
+max_processes = 96
+
+# The account ids whose requests are dropped, such as an account that
+# ran a batch job rather than an agent. The real ids are not published.
+excluded_users = []

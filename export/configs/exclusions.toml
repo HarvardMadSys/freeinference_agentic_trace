@@ -1,0 +1,15 @@
+# Sessions the release leaves out, each with why. The build keeps every session,
+# so an exclusion is undone by removing its entry and releasing the week again.
+#
+#   [[harness]]   every session of a harness:
+#       name = "claude-code"
+#       reason = "..."
+#   [[session]]   one session, by its id as the release gives it: the hashed
+#       id = "..."   id, never a raw one, since this file is public.
+#       reason = "..."
+
+version = "exclusions-v2-2026-09-30"
+
+[[harness]]
+name = "other-agent"
+reason = "the first request's phrases name no harness"

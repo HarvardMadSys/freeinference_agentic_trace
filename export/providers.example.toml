@@ -1,0 +1,9 @@
+# The anonymous letter of each upstream provider. The maintainer keeps the real
+# file, with the real provider names, as private/providers.toml, which is never
+# committed. A letter is the same provider in every week, so a letter is never
+# changed or reused once a week shipped under it; a new provider takes the next
+# free letter. A request whose provider has no letter stops the release.
+
+[letters]
+"provider-one" = "A"
+"provider-two" = "B"

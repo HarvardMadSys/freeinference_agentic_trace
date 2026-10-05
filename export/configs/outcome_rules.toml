@@ -1,0 +1,23 @@
+# How a tool result is judged ok, error, denied or timeout. The tests run in
+# order on the start of the result, and the first that decides wins.
+
+version = "v1-2026-09-30"
+
+head_characters = 4000    # only the start of a result is read
+marker_characters = 600   # a marker or an exit code counts only this near the start
+
+denial_markers = [
+    "The user denied this operation", "user denied", "User declined",
+    "The user doesn't want to proceed",
+]
+timeout_markers = [
+    "did not complete in", "was sent to the background", "Command timed out", "timed out after",
+]
+failure_markers = [
+    "The tool execution failed", "<tool_use_error>", "Error executing ", "Search failed",
+    "Command failed", "tool execution was interrupted",
+]
+# A JSON result whose `error` field holds one of these has no error.
+empty_error_values = ["", "null", "none"]
+# A JSON result whose `status` is one of these succeeded.
+success_statuses = ["success", "approved", "ok"]

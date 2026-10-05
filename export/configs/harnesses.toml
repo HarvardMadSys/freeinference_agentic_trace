@@ -1,0 +1,77 @@
+# The agent harnesses of the paper, and how a request names its harness.
+#
+# A request's harness is decided in two steps:
+#   1. phrases:    the entry whose self-identifying phrase appears EARLIEST in
+#                  the request's intro window: the plain text of the system
+#                  and user messages among its first 6 input entries, joined
+#                  with newlines, cut to 20,000 characters and lower-cased.
+#                  On a tie, the entry listed first wins.
+#   2. user_agent: else the first entry with a substring in the lower-cased
+#                  user agent.
+# Otherwise the request is `other-agent`, and the extract drops it. Only the
+# paper's harnesses are listed; every other agent is `other-agent`.
+#
+# Phrases are lower-case and matched as plain substrings. A trailing comma or
+# space is part of the phrase: "you are zoo," must not match "you are zookeeper".
+#
+# Entries with user_agent substrings come in the order they are tried:
+# kilo, openhands, opencode, cline, codex. A user agent such as
+# "opencode-kilo-provider" is kilo's. Claude Code is named by its phrases
+# only: a request whose phrases do not name it is `other-agent`, whatever
+# its user agent.
+
+version = "harnesses-v3-2026-09-30"
+
+[claude-code]
+phrases = ["you are claude code", "anthropic's official cli", "cc_entrypoint=",
+           "cc_version=", "anthropic's claude agent sdk"]
+
+[kilo]
+phrases = ["you are kilo"]
+user_agent = ["kilo"]
+
+[openhands]
+phrases = ["you are openhands", "openhands agent"]
+user_agent = ["openhands"]
+
+[opencode]
+phrases = ["you are opencode"]
+user_agent = ["opencode"]
+
+[cline]
+phrases = ["you are cline"]
+user_agent = ["cline"]
+
+[codex]
+phrases = ["you are codex", "coding agent running in the codex cli"]
+user_agent = ["codex"]
+
+[oh-my-pi]
+# A fork of pi, counted on its own as in the paper. Listed before pi, so that a
+# prompt naming both at the same position is the fork's.
+phrases = ["oh my pi"]
+
+[pi]
+phrases = ["operating inside pi", "pi, a coding agent harness"]
+
+[hermes]
+phrases = ["you are hermes agent", "# hermes agent persona", "you run on hermes agent",
+           "hermes agent — это software runtime", "hermes manager profile"]
+
+[openclaw]
+phrases = ["running inside openclaw", "you are openclaw"]
+
+["eval:swe-bench"]
+# The SWE-bench scaffold, recognised by the shape it wraps every task in.
+phrases = ["you are a helpful assistant that can interact with a computer",
+           "<pr_description>", "<uploaded_files>", "checked out at /testbed",
+           "you are an autonomous software engineering agent"]
+
+[zcode]
+phrases = ["you are zcode"]
+
+[copilot]
+phrases = ["you are an expert ai programming assistant, working with a user in the vs code"]
+
+[zoo]
+phrases = ["you are zoo,"]

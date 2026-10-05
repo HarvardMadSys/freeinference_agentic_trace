@@ -1,0 +1,26 @@
+# The notes a harness writes into a conversation when it compacts it: a summary
+# of the history so far takes the history's place. A message holding one of
+# these phrases, matched as an exact substring, holds a compaction note.
+#
+# Each phrase is listed with the harness that writes it, as counted on the
+# week of 2026-07-12. "produced a summary of its thinking process" (Codex,
+# Oh-My-Pi) is not listed: it introduces a summary of reasoning, not of the
+# conversation.
+
+version = "compaction-notes-v1-2026-09-30"
+
+[[note]]
+phrase = "This session is being continued from a previous conversation"
+harnesses = ["claude-code", "oh-my-pi", "zcode"]
+
+[[note]]
+phrase = "[CONTEXT COMPACTION"
+harnesses = ["hermes"]
+
+[[note]]
+phrase = "[Compressed conversation section]"
+harnesses = ["opencode"]
+
+[[note]]
+phrase = "was compacted into the follow"
+harnesses = ["pi"]

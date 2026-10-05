@@ -1,0 +1,129 @@
+# Which tools start a subagent or ask a person, which family each tool belongs
+# to, which purpose each shell program serves, and the category each family and
+# purpose is counted in. Every name is lower case.
+
+version = "v6-2026-09-30"
+
+# Tools that start a subagent: a call of one is a spawn call, matched to the session its subagent ran.
+[spawn]
+tools = [
+    "task", "agent", "subagent", "subagents", "use_subagents", "runsubagent",
+    "new_task", "spawn_agent", "sessions_spawn", "delegate_task", "dispatch_agent",
+    "call_omo_agent", "multi_agent_v1__spawn_agent", "team_spawn_teammate",
+    "team_run_task", "delegate_to_ask", "delegate_to_prototyping",
+]
+
+# Tools that hand control to the person: the session's next request waited for the user's answer.
+[ask_user]
+tools = [
+    "question", "ask_user_questions", "askuserquestion", "ask_user", "clarify",
+    "suggest", "request_user_input", "attempt_completion", "ask_followup_question",
+    "ask_question", "ask", "user_input",
+]
+
+# The family of a native tool, by its canonical name; a tool in no family is `other`.
+[tool_families]
+shell = ["shell"]
+read = ["read", "grep", "list"]
+edit = ["edit"]
+write = ["write"]
+browser = ["browser", "web_fetch", "web_search"]
+mcp = ["mcp"]
+
+# A canonical name holding one of these marks an MCP tool.
+[mcp]
+name_contains = ["mcp", "__"]
+
+# The purpose of a shell program, by the first word of its label. A purpose with no entry in [categories]
+# (containers, databases, mobile, windows, scripts) is counted as Other.
+[shell_purposes]
+git = ["git", "gh", "svn", "hg"]
+packages = [
+    "npm", "pnpm", "yarn", "pip", "uv", "poetry", "conda", "cargo", "gem", "bundle",
+    "composer", "apt", "apt-get", "brew", "go", "mvn", "gradle", "pdm", "rye", "pipx",
+    "pixi", "pub",
+]
+build_test = [
+    "pytest", "make", "tsc", "jest", "vitest", "tox", "nox", "cmake", "ninja", "ctest",
+    "gtest", "phpunit", "rspec", "ruff", "eslint", "mypy", "flake8", "black", "test",
+    "lint", "build", "check", "gcc", "g++", "clang", "clang++", "cc", "rustc", "javac",
+    "nvcc", "hipcc", "cslc", "ld", "gradlew", "mvnw", "ar", "as",
+]
+interpreter = [
+    "python", "node", "npx", "deno", "bun", "dotnet", "ruby", "java", "ts-node", "tsx",
+    "php", "rscript", "swift",
+]
+files = [
+    "cat", "ls", "cd", "mkdir", "rm", "cp", "mv", "touch", "chmod", "chown", "ln", "head",
+    "tail", "tee", "echo", "pwd", "tree", "wc", "sort", "uniq", "cut", "tar", "zip",
+    "unzip", "diff", "stat", "du", "df", "ps", "kill", "pkill", "sleep", "which", "export",
+    "true", "false", "date", "tr", "file", "printf", "uname", "whoami", "id", "env", "xxd",
+    "hexdump", "md5sum", "sha256sum", "base64", "top", "htop", "free", "uptime", "pgrep",
+    "lsof", "dirname", "basename", "realpath", "readlink", "nproc", "seq", "yes", "watch",
+    "crontab", "strings",
+]
+search = [
+    "grep", "rg", "find", "fd", "ag", "awk", "sed", "jq", "ack", "fgrep", "egrep",
+    "select-string",
+]
+network = [
+    "curl", "wget", "ssh", "scp", "rsync", "ping", "nc", "http", "telnet", "ss", "netstat",
+    "ip", "ifconfig", "dig", "nslookup", "host", "sshpass", "nmap", "traceroute",
+    "hostname", "invoke-webrequest", "invoke-restmethod", "test-netconnection",
+]
+waiting = ["sleep", "nohup", "start-job", "start-process", "pi-background"]
+containers = ["docker", "podman", "kubectl", "helm", "docker-compose", "compose"]
+databases = [
+    "sqlite3", "psql", "mysql", "mysqldump", "sqlplus", "redis-cli", "mongosh", "mongo",
+    "duckdb", "clickhouse-client", "sqlcmd",
+]
+mobile = ["adb", "flutter", "xcodebuild", "xcrun", "emulator", "avdmanager", "fastboot", "idb"]
+windows = [
+    "powershell", "pwsh", "cmd", "reg", "wmic", "taskkill", "tasklist", "sc", "netsh",
+    "schtasks", "robocopy", "xcopy", "attrib", "icacls", "findstr", "wsl", "certutil",
+    "wevtutil", "dir", "type", "where",
+]
+scripts = ["bash", "sh", "zsh", "dash", "fish", "source"]
+
+# How a command's purpose is decided from its programs.
+[shell_rules]
+# When a command runs programs of several purposes, the earliest purpose here wins.
+purpose_order = [
+    "waiting", "build_test", "containers", "git", "search", "network", "packages",
+    "interpreter", "files", "databases", "mobile", "windows", "scripts",
+]
+# Programs that never decide a command's purpose.
+setup_programs = [
+    "cd", "echo", "printf", "true", "false", "date", "sleep", "which", "export", "source",
+    "pwd", "wait",
+]
+plumbing_programs = [
+    "cat", "head", "tail", "wc", "sort", "uniq", "cut", "tr", "tee", "less", "more",
+    "column", "nl", "xargs",
+]
+# A package manager followed by one of these runs code: `npm run`, `uv run`.
+run_subcommands = ["run", "start", "dev", "exec", "x", "serve", "watch"]
+# A PowerShell command `Verb-Noun` whose noun is one of these works on files.
+powershell_file_nouns = [
+    "content", "item", "childitem", "itemproperty", "path", "location", "object", "date",
+    "output", "host", "file", "string",
+]
+
+# The category each family and purpose is counted in, as the release names it.
+[categories]
+read = "Read"
+browser = "Browser"
+edit = "Edit"
+write = "Write"
+mcp = "MCP"
+subagent = "Subagent"
+ask_user = "Ask User"
+files = "*File Ops"
+interpreter = "*Interpreter"
+search = "*Search"
+waiting = "*Wait/Poll"
+git = "*Git/VCS"
+build_test = "*Build/Test"
+packages = "*Packages"
+network = "*Network"
+other = "Other"

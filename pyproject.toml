@@ -1,0 +1,33 @@
+[build-system]
+requires = ["setuptools>=69"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "agentic-pipeline"
+version = "0.1.0"
+description = "The FreeInference agentic trace: raw weekly logs to a per-week anonymous release and the paper's figures."
+requires-python = ">=3.12"
+dependencies = [
+    "orjson>=3.11",   # the raw weeks are hundreds of GB of JSON lines
+    "pyarrow>=25",    # every output is Parquet
+    "pandas>=3",      # the analyses work on data frames
+    "matplotlib>=3.11",  # the paper's figures
+    "tiktoken>=0.14",    # o200k token counts of an input's roles
+    "tree-sitter==0.26.0",       # a shell command read as bash, not cut at operators
+    "tree-sitter-bash==0.25.1",  # the bash grammar, pinned so every week reads commands alike
+]
+
+[project.optional-dependencies]
+test = ["pytest>=9"]
+huggingface = ["huggingface_hub>=1"]  # `python -m release download`, and the maintainer's upload
+
+[tool.setuptools.packages.find]
+include = ["export*", "release*", "simulation*", "paper*"]
+
+[tool.setuptools.package-data]
+export = ["configs/*.toml", "*.toml"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+# Test files in different folders may share a name, such as tests/export/raw/test_cut.py.
+addopts = "--import-mode=importlib"

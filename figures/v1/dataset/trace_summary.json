@@ -1,0 +1,10 @@
+{
+  "months": 3.7,
+  "sessions": 12002,
+  "requests": 1186582,
+  "tool_calls": 1213347,
+  "input_tokens": 209199292539.0,
+  "output_tokens": 552524061.0,
+  "cached_tokens": 197064717672.0,
+  "harnesses": 13
+}

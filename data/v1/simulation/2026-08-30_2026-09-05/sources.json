@@ -1,0 +1,14 @@
+{
+  "cheaper_reads.parquet": {
+    "manifest.json": "a0db5cf1a9d50315898a54e6c540bc0349ec18c1707883bc132f0b027ff8a554"
+  },
+  "request_misses.parquet": {
+    "manifest.json": "a0db5cf1a9d50315898a54e6c540bc0349ec18c1707883bc132f0b027ff8a554"
+  },
+  "tallies.parquet": {
+    "manifest.json": "a0db5cf1a9d50315898a54e6c540bc0349ec18c1707883bc132f0b027ff8a554"
+  },
+  "totals.parquet": {
+    "manifest.json": "a0db5cf1a9d50315898a54e6c540bc0349ec18c1707883bc132f0b027ff8a554"
+  }
+}

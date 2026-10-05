@@ -1,0 +1,49 @@
+# One name per kind of tool, used only to decide a call's family and so its
+# category (`export/configs/tool_categories.toml`). A raw name is lower-cased and looked
+# up in [aliases]; failing that, the [keywords] rules are tried in the order
+# written, and a rule fires when one of its keywords starts a word of the name.
+# A name nothing matches is kept.
+# Only names with a family are listed: a tool no rule folds keeps its own name,
+# and the family test then finds it an MCP tool or `other`. No server prefix is
+# removed: `mcp_` or `mcp__` is what marks a tool as MCP, and the keywords match
+# anywhere in a name, so `mcp__filesystem__read_file` still folds to `read`.
+
+
+[aliases]
+read = ["read", "read_file", "file_read", "readfile", "view", "view_file", "cat", "open",
+        "open_file", "read_entry", "query_chapter", "select_entry", "read_structured_file",
+        "read_many_files", "get_file_contents"]
+write = ["write", "write_file", "file_write", "write_to_file", "create_file", "create_entry",
+         "save_file", "create_text_file"]
+edit = ["edit", "edit_file", "apply_diff", "str_replace", "str_replace_editor",
+        "str_replace_based_edit_tool", "search_replace", "insert_edit_into_file",
+        "replace_string_in_file", "multiedit", "replace_regex", "update_entry"]
+shell = ["shell", "bash", "exec", "execute_shell", "execute_shell_command", "execute_command",
+         "terminal", "run_command", "run_terminal_cmd", "execute_code", "run_code", "execute",
+         "command", "python", "run_python", "code_execution", "powershell", "pwsh"]
+grep = ["grep", "grep_search", "search_files", "ripgrep", "rg", "codebase_search",
+        "search_entries", "search", "find", "file_search", "search_file_content"]
+list = ["glob", "list", "ls", "list_directory", "list_dir", "list_files", "list_chapters",
+        "directory_tree", "tree"]
+web_search = ["websearch", "web_search", "search_web", "google", "tavily", "brave_search",
+              "google_search", "duckduckgo"]
+web_fetch = ["web_fetch", "webfetch", "fetch", "fetch_url", "open_url", "read_url", "browse",
+             "url_fetch"]
+browser = ["browser_use", "browser", "playwright", "navigate", "click", "browser_action",
+           "screenshot_page"]
+
+
+# ORDER IS LOAD-BEARING: rules are tried top to bottom, so the most specific
+# family comes first. Browser comes before shell, so `browser_exec` runs code in
+# a page, not a command. `screenshot` is no browser keyword: computer-use,
+# Android and Blender tools take screenshots too. `url` is no fetch keyword:
+# `supabase_get_project_url` fetches nothing.
+[keywords]
+browser    = ["browser", "playwright", "puppeteer", "devtools"]
+shell      = ["execute_shell", "shell", "bash", "terminal", "command", "exec"]
+read       = ["read_file", "readfile", "file_read", "read"]
+write      = ["write_file", "writefile", "file_write", "create_file"]
+edit       = ["edit", "str_replace", "patch"]  # not `diff`: it misfolded get_diff, a read-only view
+grep       = ["grep", "search_file", "ripgrep", "codebase_search"]
+web_search = ["websearch", "web_search", "google", "tavily"]
+web_fetch  = ["web_fetch", "fetch", "extract_url"]
